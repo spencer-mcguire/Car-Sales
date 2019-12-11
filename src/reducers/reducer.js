@@ -1,3 +1,5 @@
+import { TRIGGER_BUY, TRIGGER_REMOVE } from "../actions/featureActions";
+
 const initialState = {
   additionalPrice: 0,
   car: {
@@ -17,6 +19,26 @@ const initialState = {
 
 export const featureReducer = (state = initialState, action) => {
   switch (action.type) {
+    case TRIGGER_BUY:
+      return {
+        ...state,
+        additionalPrice: state.additionalPrice + action.payload.price,
+        car: {
+          ...state.car,
+          features: [...state.car.features, action.payload]
+        }
+      };
+
+    case TRIGGER_REMOVE:
+      return {
+        ...state,
+        additionalPrice: state.additionalPrice - action.payload.price,
+        car: {
+          ...state.car,
+          features: state.car.features.filter(i => action.payload.id !== i.id)
+        }
+      };
+
     default:
       return state;
   }
