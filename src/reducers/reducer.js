@@ -1,5 +1,4 @@
 import { BUY_FEATURE, REMOVE_FEATURE } from "../actions/featureActions";
-import { bindActionCreators } from "../../../../../AppData/Local/Microsoft/TypeScript/3.6/node_modules/redux";
 
 const InitialState = {
   additionalPrice: 0,
@@ -28,16 +27,20 @@ export const featureReducer = (state = InitialState, action) => {
         car: {
           ...state.car,
           features: [...state.car.features, action.payload]
-        }
+        },
+        additionalFeatures: state.additionalFeatures.filter(
+          i => action.payload.id !== i.id
+        )
       };
     case REMOVE_FEATURE:
       return {
         ...state,
+        additionalPrice: state.additionalPrice - action.payload.price,
         car: {
           ...state.car,
           features: state.car.features.filter(i => action.payload.id !== i.id)
         },
-        additionalPrice: state.additionalPrice - action.payload.price
+        additionalFeatures: [...state.additionalFeatures, action.payload]
       };
 
     default:
