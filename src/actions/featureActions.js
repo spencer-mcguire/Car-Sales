@@ -5,6 +5,6 @@ export const buy = item => {
   return { type: BUY_FEATURE, payload: item };
 };
 
-export const remove = id => {
-  return { type: REMOVE_FEATURE, payload: id };
+export const remove = i => {
+  return { type: REMOVE_FEATURE, payload: i };
 };
